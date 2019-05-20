@@ -3,6 +3,23 @@
 通过手势进行回调 上下翻页。
 [![](https://jitpack.io/v/zp000123/GestureView.svg)](https://jitpack.io/#zp000123/GestureView)
 
+## 依赖
+1. 第一步
+```
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+2. 第二步
+```
+	dependencies {
+	        api 'com.github.zp000123:GestureView:Tag'
+	}
+```
+
 
 ## 使用说明
 1. 包裹需要监听的View
