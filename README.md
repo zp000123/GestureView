@@ -41,15 +41,16 @@
 
 2. 查找控件并设置监听
 
-
 ```
 gv.listener = object : TouchCallback {
     override fun onUp() {
         Log.i(TAG, "onUp")
+        //  nextPage()
     }
 
     override fun onDown() {
         Log.i(TAG, "onDown")
+        //  prevPage()
     }
 
 }
