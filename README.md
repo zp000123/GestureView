@@ -26,7 +26,8 @@
           app:layout_constraintRight_toRightOf="parent"
           app:layout_constraintTop_toTopOf="parent">
 
-          <TextView
+          <!-- 一般是 RecyclerView -->
+          <TextView 
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:gravity="center"
