@@ -16,7 +16,7 @@
 2. 第二步
 ```
 	dependencies {
-	        api 'com.github.zp000123:GestureView:Tag'
+	        api 'com.github.zp000123:GestureView:v1.0'
 	}
 ```
 
