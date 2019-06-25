@@ -16,7 +16,7 @@
 2. 第二步
 ```
 	dependencies {
-	        api 'com.github.zp000123:GestureView:v1.1'
+	        api 'com.github.zp000123:GestureView:v1.1.1'
 	}
 ```
 
@@ -60,12 +60,14 @@ gv.listener = object : TouchCallback {
         Log.i(TAG, "onDown")
         //  prevPage()
     }
-    
-    override fun onLeft() {
-    }
-    
+}
+gv.hTouchListener = object :HTouchCallback{
     override fun onRight() {
+         Log.i(TAG, "onRight")
     }
 
+    override fun onLeft() {
+         Log.i(TAG, "onLeft")
+    }
 }
 ```
