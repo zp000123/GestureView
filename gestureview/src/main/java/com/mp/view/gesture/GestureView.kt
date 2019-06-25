@@ -115,9 +115,9 @@ class GestureView @JvmOverloads constructor(
         if (Math.abs(xVelocity) > VELOCITY_MIN) {
             when {
                 xVelocity > 0 && Math.abs(x - lastMoveX) > mTouchSlop -> // 向下 ( 速度大于 0 )
-                    listener?.onRight()
+                    hTouchListener?.onRight()
                 xVelocity < 0 && Math.abs(x - lastMoveX) > mTouchSlop -> // 向上 （ 速度小于 0 )
-                    listener?.onLeft()
+                    hTouchListener?.onLeft()
                 else -> {
                     custom = false
                 }
@@ -127,9 +127,9 @@ class GestureView @JvmOverloads constructor(
             val offsetX = x - lastDownX
             when {
                 offsetX > 0 && offsetX > DISTANCE_MIN -> // 向右
-                    listener?.onRight()
+                    hTouchListener?.onRight()
                 offsetX < 0 && Math.abs(offsetX) > DISTANCE_MIN -> // 向左
-                    listener?.onLeft()
+                    hTouchListener?.onLeft()
                 else -> {
                     custom = false
                 }
@@ -156,7 +156,6 @@ class GestureView @JvmOverloads constructor(
     }
 
 
-
     override fun onTouchEvent(event: MotionEvent): Boolean {
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
@@ -175,6 +174,7 @@ class GestureView @JvmOverloads constructor(
     }
 
     var listener: TouchCallback? = null
+    var hTouchListener: HTouchCallback? = null
 
     companion object {
         const val TAG = "GestureView"
@@ -205,6 +205,9 @@ interface TouchCallback {
      */
     fun onDown()
 
+}
+
+interface HTouchCallback {
     /**
      * 移动方向想左，一般也表示上一页
      */

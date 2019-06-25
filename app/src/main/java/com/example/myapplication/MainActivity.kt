@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.mp.view.gesture.GestureView
+import com.mp.view.gesture.HTouchCallback
 import com.mp.view.gesture.TouchCallback
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -24,13 +25,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         gv.orientation = GestureView.VERTICAL or GestureView.HORIZONTAL
         gv.listener = object : TouchCallback {
-            override fun onRight() {
-                Log.i(TAG, "onRight")
-            }
-
-            override fun onLeft() {
-                Log.i(TAG, "onLeft")
-            }
 
             override fun onUp() {
                 Log.i(TAG, "onUp")
@@ -41,9 +35,18 @@ class MainActivity : AppCompatActivity() {
                 Log.i(TAG, "onDown")
                 lv.smoothScrollToPosition(0)
             }
-
         }
 
+        gv.hTouchListener = object :HTouchCallback{
+            override fun onRight() {
+                Log.i(TAG, "onRight")
+            }
+
+            override fun onLeft() {
+                Log.i(TAG, "onLeft")
+            }
+
+        }
         lv.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, city)
         lv.setOnItemClickListener { parent, view, position, id ->
             Toast.makeText(this@MainActivity, city[position], Toast.LENGTH_SHORT).show()
