@@ -33,6 +33,46 @@ class GestureView @JvmOverloads constructor(
     // 上一次 Move 的 Y 值
     var lastMoveY = 0f
     var lastMoveX = 0f
+    var maxHeight = Int.MAX_VALUE
+
+    init {
+        val a = context.obtainStyledAttributes(attrs, R.styleable.GestureView, defStyleAttr, 0)
+        maxHeight = a.getInt(R.styleable.GestureView_maxHeight, Integer.MAX_VALUE)
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+
+        val child = getChildAt(0)
+        child.measure(widthMeasureSpec, heightMeasureSpec)
+        val width = child.measuredWidth
+        val height = child.measuredHeight
+
+        setMeasuredDimension(width, resolveAdjustedSize(height, maxHeight, heightMeasureSpec))
+    }
+
+    private fun resolveAdjustedSize(desiredSize: Int, maxSize: Int,
+                                    measureSpec: Int): Int {
+        var result = desiredSize
+        val specMode = MeasureSpec.getMode(measureSpec)
+        val specSize = MeasureSpec.getSize(measureSpec)
+        when (specMode) {
+            MeasureSpec.UNSPECIFIED ->
+                /* Parent says we can be as big as we want. Just don't be larger
+                   than max size imposed on ourselves.
+                */
+                result = Math.min(desiredSize, maxSize)
+            MeasureSpec.AT_MOST ->
+                // Parent says we can be as big as we want, up to specSize.
+                // Don't be larger than specSize, and don't be larger than
+                // the max size imposed on ourselves.
+                result = Math.min(Math.min(desiredSize, specSize), maxSize)
+            MeasureSpec.EXACTLY ->
+                // No choice. Do what we are told.
+                result = specSize
+        }
+        return result
+    }
 
     override fun dispatchTouchEvent(event: MotionEvent): Boolean {
 
