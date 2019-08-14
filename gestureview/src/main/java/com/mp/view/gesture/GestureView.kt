@@ -37,7 +37,7 @@ class GestureView @JvmOverloads constructor(
 
     init {
         val a = context.obtainStyledAttributes(attrs, R.styleable.GestureView, defStyleAttr, 0)
-        maxHeight = context.dp2px(a.getInt(R.styleable.GestureView_maxHeight, Integer.MAX_VALUE).toFloat())
+        maxHeight = context.dp2px(a.getInt(R.styleable.GestureView_gMaxHeight, Integer.MAX_VALUE).toFloat())
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
