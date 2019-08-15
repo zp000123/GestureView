@@ -43,12 +43,15 @@ class GestureView @JvmOverloads constructor(
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
 
+
         val child = getChildAt(0)
         child.measure(widthMeasureSpec, heightMeasureSpec)
         val width = child.measuredWidth
         val height = child.measuredHeight
 
-        setMeasuredDimension(width, resolveAdjustedSize(height, maxHeight, heightMeasureSpec))
+        val newHeight = resolveAdjustedSize(height, maxHeight, heightMeasureSpec)
+        child.measure(widthMeasureSpec, newHeight)
+        setMeasuredDimension(width, newHeight)
     }
 
     private fun resolveAdjustedSize(desiredSize: Int, maxSize: Int,
@@ -58,17 +61,10 @@ class GestureView @JvmOverloads constructor(
         val specSize = MeasureSpec.getSize(measureSpec)
         when (specMode) {
             MeasureSpec.UNSPECIFIED ->
-                /* Parent says we can be as big as we want. Just don't be larger
-                   than max size imposed on ourselves.
-                */
                 result = Math.min(desiredSize, maxSize)
             MeasureSpec.AT_MOST ->
-                // Parent says we can be as big as we want, up to specSize.
-                // Don't be larger than specSize, and don't be larger than
-                // the max size imposed on ourselves.
                 result = Math.min(Math.min(desiredSize, specSize), maxSize)
             MeasureSpec.EXACTLY ->
-                // No choice. Do what we are told.
                 result = specSize
         }
         return result

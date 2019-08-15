@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">GestureView</string>
+    <string name="analysis_title">分析</string>
+    <string name="right_answer_title">正确答案</string>
 </resources>

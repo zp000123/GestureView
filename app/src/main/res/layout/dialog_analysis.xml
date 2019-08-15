@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="400dp"
+    android:layout_height="485dp">
+
+    <com.mp.view.gesture.GestureView
+        android:id="@+id/gv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/red"
+        app:gMaxHeight="485"
+        tools:ignore="MissingConstraints">
+
+
+        <!--<ScrollView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:fillViewport="true"-->
+            <!--android:id="@+id/sv"-->
+            <!--android:orientation="vertical"-->
+            <!--android:overScrollMode="never">-->
+
+            <LinearLayout
+                android:id="@+id/ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_exam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_1"
+                    android:background="@color/ec"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_exam">
+
+                    <TextView
+                        android:id="@+id/tv_answer_flag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="@string/right_answer_title"
+                        android:textColor="@color/c_3"
+                        android:textSize="@dimen/sp_18"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_answer"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:layout_marginEnd="@dimen/dp_10"
+                        android:gravity="start"
+                        android:textColor="@color/c_2"
+                        android:textSize="@dimen/sp_18"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/tv_answer_flag"
+                        app:layout_constraintTop_toBottomOf="@id/tv_answer_flag"
+                        tools:text="A" />
+
+                    <TextView
+                        android:id="@+id/tv_analysis_flag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="@string/analysis_title"
+                        android:textColor="@color/c_3"
+                        android:textSize="@dimen/sp_18"
+                        app:layout_constraintStart_toStartOf="@id/tv_answer_flag"
+                        app:layout_constraintTop_toBottomOf="@id/tv_answer" />
+
+                    <TextView
+                        android:id="@+id/tv_answer_analysis"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:gravity="start"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:text="A：根据文章可知，B、C、D均不符合文章。"
+                        android:textColor="@color/c_2"
+                        android:textSize="@dimen/sp_18"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_answer"
+                        app:layout_constraintStart_toStartOf="@id/tv_answer_flag"
+                        app:layout_constraintTop_toBottomOf="@id/tv_analysis_flag" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </LinearLayout>
+        <!--</ScrollView>-->
+    </com.mp.view.gesture.GestureView>
+
+    <ImageView
+        android:id="@+id/iv_exit"
+        android:layout_width="@dimen/dp_42"
+        android:layout_height="@dimen/dp_42"
+        android:layout_alignParentEnd="true" />
+</RelativeLayout>
