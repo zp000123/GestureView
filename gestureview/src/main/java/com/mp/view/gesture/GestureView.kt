@@ -4,9 +4,7 @@ package com.mp.view.gesture
 import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
-import android.view.MotionEvent
-import android.view.VelocityTracker
-import android.view.ViewConfiguration
+import android.view.*
 import android.widget.FrameLayout
 
 
@@ -42,20 +40,47 @@ class GestureView @JvmOverloads constructor(
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-
-
         val child = getChildAt(0)
-        child.measure(widthMeasureSpec, heightMeasureSpec)
-        val width = child.measuredWidth
-        val height = child.measuredHeight
 
-        val newHeight = resolveAdjustedSize(height, maxHeight, heightMeasureSpec)
-        child.measure(widthMeasureSpec, newHeight)
+        child.measure(widthMeasureSpec, heightMeasureSpec)
+        val measureHeight = child.measuredHeight
+
+        val newHeight = resolveAdjustedSize(measureHeight, maxHeight, heightMeasureSpec)
+
+
+        val childHeightMeasureSpec: Int
+        val lp = child.getLayoutParams() as MarginLayoutParams
+        if (maxHeight == Int.MAX_VALUE && lp.height == LayoutParams.MATCH_PARENT) {
+            val height = Math.max(0, measuredHeight - lp.topMargin - lp.bottomMargin)
+            childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY)
+        } else {
+            childHeightMeasureSpec = ViewGroup.getChildMeasureSpec(
+                    if (newHeight == maxHeight) maxHeight else heightMeasureSpec,
+                    lp.topMargin + lp.bottomMargin,
+                    lp.height
+            )
+        }
+        val childWidthMeasureSpec: Int
+        if (lp.width == LayoutParams.MATCH_PARENT) {
+            val width = Math.max(
+                    0, measuredWidth - lp.leftMargin - lp.rightMargin
+            )
+            childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(
+                    width, MeasureSpec.EXACTLY
+            )
+        } else {
+            childWidthMeasureSpec =
+                    ViewGroup.getChildMeasureSpec(widthMeasureSpec, lp.leftMargin + lp.rightMargin, lp.width)
+        }
+
+        child.measure(childWidthMeasureSpec, childHeightMeasureSpec)
         setMeasuredDimension(width, newHeight)
     }
 
-    private fun resolveAdjustedSize(desiredSize: Int, maxSize: Int,
-                                    measureSpec: Int): Int {
+    private fun resolveAdjustedSize(
+            desiredSize: Int, maxSize: Int,
+            measureSpec: Int
+    ): Int {
         var result = desiredSize
         val specMode = MeasureSpec.getMode(measureSpec)
         val specSize = MeasureSpec.getSize(measureSpec)
