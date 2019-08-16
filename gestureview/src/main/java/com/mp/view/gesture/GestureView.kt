@@ -74,7 +74,7 @@ class GestureView @JvmOverloads constructor(
         }
 
         child.measure(childWidthMeasureSpec, childHeightMeasureSpec)
-        setMeasuredDimension(width, newHeight)
+        setMeasuredDimension(widthMeasureSpec, newHeight)
     }
 
     private fun resolveAdjustedSize(
