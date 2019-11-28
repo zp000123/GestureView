@@ -13,7 +13,7 @@
 		}
 	}
 ```
-2. 第二步
+2. 第二步 app/build.gradle
 ```
 	dependencies {
 	        api 'com.github.zp000123:GestureView:v1.1.7'
