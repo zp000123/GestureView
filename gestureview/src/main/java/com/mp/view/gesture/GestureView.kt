@@ -55,7 +55,7 @@ class GestureView @JvmOverloads constructor(
             childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY)
         } else {
             childHeightMeasureSpec = ViewGroup.getChildMeasureSpec(
-                    if (newHeight == maxHeight) maxHeight else heightMeasureSpec,
+                    if (newHeight == maxHeight) 0 else heightMeasureSpec,
                     lp.topMargin + lp.bottomMargin,
                     lp.height
             )
